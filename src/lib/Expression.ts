@@ -1,13 +1,14 @@
+import BooleanPrimary from "./BooleanPrimary";
 import * as Expressions from "./expressions";
 
-export default class Expression {
+export default class Expression extends BooleanPrimary {
 	/**
 	 * Returns true if either a or b are true.
 	 * @param a 
 	 * @param b
 	 * @returns
 	 */
-	static or(a: Expression, b: Expression): Expressions.Or {
+	static or(a: Expression, b: Expression): Expression {
 		return new Expressions.Or(a, b);
 	}
 
@@ -17,8 +18,8 @@ export default class Expression {
 	 * @param b 
 	 * @returns
 	 */
-	static xor(a: Expression, b: Expression): Expressions.XOr {
-		return new Expressions.XOr(a, b);
+	static xor(a: Expression, b: Expression): Expression {
+		return new Expressions.Xor(a, b);
 	}
 
 	/**
@@ -27,7 +28,7 @@ export default class Expression {
 	 * @param b 
 	 * @returns 
 	 */
-	static and(a: Expression, b: Expression): Expressions.And {
+	static and(a: Expression, b: Expression): Expression {
 		return new Expressions.And(a, b);
 	}
 
@@ -37,7 +38,7 @@ export default class Expression {
 	 * @param b 
 	 * @returns 
 	 */
-	static not(a: Expression, b: Expression): Expressions.Not {
+	static not(a: Expression, b: Expression): Expression {
 		return new Expressions.Not(a, b);
 	}
 
@@ -47,7 +48,7 @@ export default class Expression {
 	 * @param b 
 	 * @returns 
 	 */
-	static is(a: Expression, b: boolean): Expressions.Is {
+	static is(a: Expression, b: boolean): Expression {
 		return new Expressions.Is(a, b);
 	}
 	
@@ -57,7 +58,7 @@ export default class Expression {
 	 * @param b 
 	 * @returns 
 	 */
-	static isNot(a: Expression, b: boolean): Expressions.IsNot {
+	static isNot(a: Expression, b: boolean): Expression {
 		return new Expressions.IsNot(a, b);
 	}
 
@@ -66,7 +67,7 @@ export default class Expression {
 	 * @param a 
 	 * @returns 
 	 */
-	static isUnknown(a: Expression): Expressions.IsUnknown {
+	static isUnknown(a: Expression): Expression {
 		return new Expressions.IsUnknown(a);
 	}
 
@@ -75,7 +76,7 @@ export default class Expression {
 	 * @param a 
 	 * @returns 
 	 */
-	static isNotUnknown(a: Expression): Expressions.IsNotUnknown {
+	static isNotUnknown(a: Expression): Expression {
 		return new Expressions.IsNotUnknown(a);
 	}
 }
