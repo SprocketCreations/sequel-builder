@@ -17,17 +17,19 @@ export {default as CompareAll} from "./CompareAll";
 export {default as CompareAny} from "./CompareAny";
 
 // Predicate
-// export {default as in} from "./in";
-// export {default as notIn} from "./notIn";
-// export {default as in} from "./in";
-// export {default as notIn} from "./notIn";
-// export {default as between} from "./between";
-// export {default as notBetween} from "./notBetween";
-// export {default as soundsLike} from "./soundsLike";
-// export {default as like} from "./like";
-// export {default as notLike} from "./notLike";
-// export {default as regex} from "./regex";
-// export {default as notRegex} from "./notRegex";
+export {default as InQuery} from "./InQuery";
+export {default as InExpression} from "./InExpression";
+export {default as NotInQuery} from "./NotInQuery";
+export {default as NotInExpression} from "./NotInExpression";
+export {default as Between} from "./Between";
+export {default as NotBetween} from "./NotBetween";
+export {default as SoundsLike} from "./SoundsLike";
+export {default as Like} from "./Like";
+export {default as NotLike} from "./NotLike";
+export {default as RegexExpression} from "./RegexExpression";
+export {default as Regex} from "./Regex";
+export {default as NotRegexExpression} from "./NotRegexExpression";
+export {default as NotRegex} from "./NotRegex";
 
 // BitExpr
 // export {default as bitOr} from "./bitOr";
