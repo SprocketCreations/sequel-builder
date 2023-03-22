@@ -3,8 +3,9 @@ import BitExpression from "./BitExpression";
 import Query from "./Query";
 import Expression from "./Expression";
 import SimpleExpression from "./SimpleExpression";
+import BooleanPrimary from "./BooleanPrimary";
 
-export default class Predicate extends BitExpression {
+export default class Predicate extends BooleanPrimary {
 	/**
 	 * @param a 
 	 * @param subQuery 

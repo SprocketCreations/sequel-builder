@@ -1,7 +1,6 @@
-import BooleanPrimary from "./BooleanPrimary";
 import * as Expressions from "./expressions";
 
-export default class Expression extends BooleanPrimary {
+export default class Expression {
 	/**
 	 * Returns true if either a or b are true.
 	 * @param a 

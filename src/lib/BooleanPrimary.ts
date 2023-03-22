@@ -2,8 +2,9 @@ import ComparisonOperator from "./ComparisonOperator";
 import Predicate from "./Predicate";
 import Query from "./Query";
 import * as Expressions from "./expressions";
+import Expression from "./Expression";
 
-export default class BooleanPrimary extends Predicate {
+export default class BooleanPrimary extends Expression {
 	/**
 	 * Checks a boolean for null.
 	 * @param a 
