@@ -32,18 +32,18 @@ export {default as NotRegexExpression} from "./NotRegexExpression";
 export {default as NotRegex} from "./NotRegex";
 
 // BitExpr
-// export {default as bitOr} from "./bitOr";
-// export {default as bitAnd} from "./bitAnd";
-// export {default as bitShiftLeft} from "./bitShiftLeft";
-// export {default as bitShiftRight} from "./bitShiftRight";
-// export {default as sum} from "./sum";
-// export {default as sum} from "./sum";
-// export {default as difference} from "./difference";
-// export {default as difference} from "./difference";
-// export {default as product} from "./product";
-// export {default as quotiant} from "./quotiant";
-// export {default as mod} from "./mod";
-// export {default as bitXOr} from "./bitXOr";
+export {default as BitOr} from "./BitOr";
+export {default as BitAnd} from "./BitAnd";
+export {default as BitXor} from "./bitXor";
+export {default as BitShiftLeft} from "./BitShiftLeft";
+export {default as BitShiftRight} from "./BitShiftRight";
+export {default as SumExpression} from "./SumExpression";
+export {default as SumInterval} from "./SumInterval";
+export {default as DifferenceExpression} from "./DifferenceExpression";
+export {default as DifferenceInterval} from "./DifferenceInterval";
+export {default as Product} from "./Product";
+export {default as Quotient} from "./Quotient";
+export {default as Mod} from "./Mod";
 
 // SimpleExpr
 // export {default as literal} from "./literal";
