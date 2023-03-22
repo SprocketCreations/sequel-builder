@@ -1,7 +1,7 @@
 
 import Expression from "./Expression";
 
-class Query {
+export default class Query {
 	/**
 	 * @param expression An expression instance built by calling expression functions.
 	 */
