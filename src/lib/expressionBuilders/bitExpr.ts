@@ -1,5 +1,7 @@
-import * as Expressions from "./expressions";
-import Interval from "./Interval";
+import * as expressionTypes from "../expressionTypes";
+import { BitExpression } from "../expressionInterfaces";
+import simpleExpr from "./simpleExpr";
+import Interval from "../Interval";
 
 export default abstract class bitExpr extends simpleExpr {
 	/**
@@ -8,11 +10,8 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static bitOr(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression {
-		return new Expressions.BitOr(bitExpr1, bitExpr2);
+	static bitOr(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.BitOr(bitExpr1, bitExpr2);
 	}
 
 	/**
@@ -21,11 +20,8 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static bitAnd(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression {
-		return new Expressions.BitAnd(bitExpr1, bitExpr2);
+	static bitAnd(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.BitAnd(bitExpr1, bitExpr2);
 	}
 
 	/**
@@ -34,11 +30,8 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static bitXor(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression {
-		return new Expressions.BitXor(bitExpr1, bitExpr2);
+	static bitXor(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.BitXor(bitExpr1, bitExpr2);
 	}
 
 	/**
@@ -47,11 +40,8 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static bitShiftLeft(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression {
-		return new Expressions.BitShiftLeft(bitExpr1, bitExpr2);
+	static bitShiftLeft(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.BitShiftLeft(bitExpr1, bitExpr2);
 	}
 
 	/**
@@ -60,11 +50,8 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static bitShiftRight(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression {
-		return new Expressions.BitShiftRight(bitExpr1, bitExpr2);
+	static bitShiftRight(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.BitShiftRight(bitExpr1, bitExpr2);
 	}
 
 	/**
@@ -84,14 +71,11 @@ export default abstract class bitExpr extends simpleExpr {
 	static sum(bitExpr1: BitExpression, interval: Interval): BitExpression;
 
 	/** Implementation */
-	static sum(
-		bitExpr: BitExpression,
-		bitExprOrInterval: Interval
-	): BitExpression {
-		if (bitExprOrInterval instanceof BitExpression) {
-			return new Expressions.SumExpression(bitExpr, bitExprOrInterval);
+	static sum(bitExpr: BitExpression, bitExprOrInterval: Interval): BitExpression {
+		if (bitExprOrInterval instanceof Interval) {
+			return new expressionTypes.SumInterval(bitExpr, bitExprOrInterval);
 		} else {
-			return new Expressions.SumInterval(bitExpr, bitExprOrInterval);
+			return new expressionTypes.SumExpression(bitExpr, bitExprOrInterval);
 		}
 	}
 
@@ -101,10 +85,7 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static difference(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression;
+	static difference(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression;
 
 	/**
 	 * a - b
@@ -112,17 +93,14 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param interval
 	 * @returns
 	 */
-	static difference(bitExpr: BitExpression, bitExpr: Interval): BitExpression;
+	static difference(bitExpr: BitExpression, interval: Interval): BitExpression;
 
 	/** Implementation */
-	static difference(
-		bitExpr: BitExpression,
-		bitExprOrInterval: Interval
-	): BitExpression {
-		if (bitExprOrInterval instanceof BitExpression) {
-			return new Expressions.DifferenceExpression(bitExpr, bitExprOrInterval);
+	static difference(bitExpr: BitExpression, bitExprOrInterval: Interval): BitExpression {
+		if (bitExprOrInterval instanceof Interval) {
+			return new expressionTypes.DifferenceInterval(bitExpr, bitExprOrInterval);
 		} else {
-			return new Expressions.DifferenceInterval(bitExpr, bitExprOrInterval);
+			return new expressionTypes.DifferenceExpression(bitExpr, bitExprOrInterval);
 		}
 	}
 
@@ -132,11 +110,8 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static product(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression {
-		return new Expressions.Product(bitExpr1, bitExpr2);
+	static product(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.Product(bitExpr1, bitExpr2);
 	}
 
 	/**
@@ -145,20 +120,17 @@ export default abstract class bitExpr extends simpleExpr {
 	 * @param bitExpr2
 	 * @returns
 	 */
-	static quotient(
-		bitExpr1: BitExpression,
-		bitExpr2: BitExpression
-	): BitExpression {
-		return new Expressions.Quotient(bitExpr1, bitExpr2);
+	static quotient(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.Quotient(bitExpr1, bitExpr2);
 	}
 
 	/**
 	 * a % b
 	 * @param bitExpr1
-	 * @param bitExpr1
+	 * @param bitExpr2
 	 * @returns
 	 */
-	static mod(bitExpr1: BitExpression, bitExpr1: BitExpression): BitExpression {
-		return new Expressions.Mod(bitExpr1, bitExpr1);
+	static mod(bitExpr1: BitExpression, bitExpr2: BitExpression): BitExpression {
+		return new expressionTypes.Mod(bitExpr1, bitExpr2);
 	}
 }
