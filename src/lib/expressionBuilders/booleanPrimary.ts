@@ -1,7 +1,9 @@
-import ComparisonOperator from "./ComparisonOperator";
-import Query from "./Query";
-import ExpressionTypes from "./expressionTypes";
+import Query from "../Query";
+import ExpressionTypes from "../expressionTypes";
+import { BooleanPrimary, Predicate } from "../expressionInterfaces";
 import predicate from "./predicate";
+import Not from "../Not";
+import ComparisonOperator from "../ComparisonOperator";
 
 export default abstract class booleanPrimary extends predicate {
 	/**
@@ -19,7 +21,7 @@ export default abstract class booleanPrimary extends predicate {
 	 * @returns
 	 */
 	static isNotNull(booleanPrimary: BooleanPrimary): BooleanPrimary {
-		return new ExpressionTypes.IsNotNull(booleanPrimary);
+		return new Not(new ExpressionTypes.IsNull(booleanPrimary));
 	}
 
 	/**
@@ -30,53 +32,314 @@ export default abstract class booleanPrimary extends predicate {
 	 */
 	static spaceship(
 		booleanPrimary: BooleanPrimary,
-		predicate: Predicate
+		predicate: Query
 	): BooleanPrimary {
 		return new ExpressionTypes.Spaceship(booleanPrimary, predicate);
 	}
 
 	/**
-	 * Compares a boolean to a predicate.
+	 * booleanPrimary == predicate
 	 * @param booleanPrimary
-	 * @param operator
 	 * @param predicate
 	 * @returns
 	 */
-	static compare(
+	static equal(
 		booleanPrimary: BooleanPrimary,
-		operator: ComparisonOperator,
 		predicate: Predicate
 	): BooleanPrimary {
-		return new ExpressionTypes.Compare(booleanPrimary, operator, predicate);
+		return new ExpressionTypes.Compare(
+			booleanPrimary,
+			ComparisonOperator.Equal,
+			predicate
+		);
 	}
 
 	/**
-	 * Compares a boolean to a predicate.
+	 * booleanPrimary != predicate
 	 * @param booleanPrimary
-	 * @param operator
-	 * @param subquery
+	 * @param predicate
 	 * @returns
 	 */
-	static compareAll(
+	static notEqual(
 		booleanPrimary: BooleanPrimary,
-		operator: ComparisonOperator,
-		subquery: Query
+		predicate: Predicate
 	): BooleanPrimary {
-		return new ExpressionTypes.CompareAll(booleanPrimary, operator, subquery);
+		return new ExpressionTypes.Compare(
+			booleanPrimary,
+			ComparisonOperator.NotEqual,
+			predicate
+		);
 	}
 
 	/**
-	 * Compares a boolean to a predicate.
+	 * booleanPrimary > predicate
 	 * @param booleanPrimary
-	 * @param operator
-	 * @param subquery
+	 * @param predicate
 	 * @returns
 	 */
-	static compareAny(
+	static greater(
 		booleanPrimary: BooleanPrimary,
-		operator: ComparisonOperator,
-		subquery: Query
+		predicate: Predicate
 	): BooleanPrimary {
-		return new ExpressionTypes.CompareAny(booleanPrimary, operator, subquery);
+		return new ExpressionTypes.Compare(
+			booleanPrimary,
+			ComparisonOperator.Greater,
+			predicate
+		);
+	}
+
+	/**
+	 * booleanPrimary >= predicate
+	 * @param booleanPrimary
+	 * @param predicate
+	 * @returns
+	 */
+	static greaterOrEqual(
+		booleanPrimary: BooleanPrimary,
+		predicate: Predicate
+	): BooleanPrimary {
+		return new ExpressionTypes.Compare(
+			booleanPrimary,
+			ComparisonOperator.GreaterOrEqual,
+			predicate
+		);
+	}
+
+	/**
+	 * booleanPrimary < predicate
+	 * @param booleanPrimary
+	 * @param predicate
+	 * @returns
+	 */
+	static less(
+		booleanPrimary: BooleanPrimary,
+		predicate: Predicate
+	): BooleanPrimary {
+		return new ExpressionTypes.Compare(
+			booleanPrimary,
+			ComparisonOperator.Less,
+			predicate
+		);
+	}
+
+	/**
+	 * booleanPrimary <= predicate
+	 * @param booleanPrimary
+	 * @param predicate
+	 * @returns
+	 */
+	static lessOrEqual(
+		booleanPrimary: BooleanPrimary,
+		predicate: Predicate
+	): BooleanPrimary {
+		return new ExpressionTypes.Compare(
+			booleanPrimary,
+			ComparisonOperator.LessOrEqual,
+			predicate
+		);
+	}
+
+	/**
+	 * booleanPrimary == ALL query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static equalToAll(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAll(
+			booleanPrimary,
+			ComparisonOperator.Equal,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary != ALL query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static notEqualToAll(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAll(
+			booleanPrimary,
+			ComparisonOperator.NotEqual,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary > ALL query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static greaterThanAll(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAll(
+			booleanPrimary,
+			ComparisonOperator.Greater,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary >= ALL query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static greaterOrEqualToAll(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAll(
+			booleanPrimary,
+			ComparisonOperator.GreaterOrEqual,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary < ALL query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static lessThanAll(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAll(
+			booleanPrimary,
+			ComparisonOperator.Less,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary <= ALL query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static lessOrEqualToAll(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAll(
+			booleanPrimary,
+			ComparisonOperator.LessOrEqual,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary == ANY query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static equalToAny(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAny(
+			booleanPrimary,
+			ComparisonOperator.Equal,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary != ANY query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static notEqualToAny(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAny(
+			booleanPrimary,
+			ComparisonOperator.NotEqual,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary > ANY query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static greaterThanAny(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAny(
+			booleanPrimary,
+			ComparisonOperator.Greater,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary >= ANY query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static greaterOrEqualToAny(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAny(
+			booleanPrimary,
+			ComparisonOperator.GreaterOrEqual,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary < ANY query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static lessThanAny(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAny(
+			booleanPrimary,
+			ComparisonOperator.Less,
+			query
+		);
+	}
+
+	/**
+	 * booleanPrimary <= ANY query
+	 * @param booleanPrimary
+	 * @param query
+	 * @returns
+	 */
+	static lessOrEqualToAny(
+		booleanPrimary: BooleanPrimary,
+		query: Query
+	): BooleanPrimary {
+		return new ExpressionTypes.CompareAny(
+			booleanPrimary,
+			ComparisonOperator.LessOrEqual,
+			query
+		);
 	}
 }
