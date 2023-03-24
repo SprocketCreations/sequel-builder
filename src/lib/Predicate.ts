@@ -7,17 +7,17 @@ import BooleanPrimary from "./BooleanPrimary";
 
 export default class Predicate extends BooleanPrimary {
 	/**
-	 * @param a 
-	 * @param subQuery 
-	 * @returns 
+	 * @param a
+	 * @param subQuery
+	 * @returns
 	 */
 	static in(a: BitExpression, subQuery: Query): Predicate;
 
 	/**
-	 * @param a 
-	 * @param subExpression 
-	 * @returns 
-	*/
+	 * @param a
+	 * @param subExpression
+	 * @returns
+	 */
 	static in(a: BitExpression, subExpression: Expression): Predicate;
 
 	/** Implementation */
@@ -27,91 +27,110 @@ export default class Predicate extends BooleanPrimary {
 		} else {
 			return new Expressions.InExpression(a, subExpressionOrQuery);
 		}
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param subQuery 
-	 * @returns 
+	 * @param a
+	 * @param subQuery
+	 * @returns
 	 */
 	static notIn(a: BitExpression, subQuery: Query): Predicate;
 
 	/**
-	 * @param a 
-	 * @param subExpression 
-	 * @returns 
-	*/
+	 * @param a
+	 * @param subExpression
+	 * @returns
+	 */
 	static notIn(a: BitExpression, subExpression: Expression): Predicate;
 
 	/** Implementation */
-	static notIn(a: BitExpression, subExpressionOrQuery: Expression): Predicate {
+	static notIn(
+		a: BitExpression,
+		subExpressionOrQuery: Expression
+	): Predicate {
 		if (subExpressionOrQuery instanceof Query) {
 			return new Expressions.NotInQuery(a, subExpressionOrQuery);
 		} else {
 			return new Expressions.NotInExpression(a, subExpressionOrQuery);
 		}
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @param and 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @param and
+	 * @returns
 	 */
-	static between(a: BitExpression, b: BitExpression, and: Predicate): Predicate {
+	static between(
+		a: BitExpression,
+		b: BitExpression,
+		and: Predicate
+	): Predicate {
 		return new Expressions.Between(a, b, and);
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @param and 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @param and
+	 * @returns
 	 */
-	static notBetween(a: BitExpression, b: BitExpression, and: Predicate): Predicate {
+	static notBetween(
+		a: BitExpression,
+		b: BitExpression,
+		and: Predicate
+	): Predicate {
 		return new Expressions.NotBetween(a, b, and);
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @returns
 	 */
 	static soundsLike(a: BitExpression, b: BitExpression): Predicate {
 		return new Expressions.SoundsLike(a, b);
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @param escape 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @param escape
+	 * @returns
 	 */
-	static like(a: BitExpression, b: SimpleExpression, escape?: SimpleExpression): Predicate {
+	static like(
+		a: BitExpression,
+		b: SimpleExpression,
+		escape?: SimpleExpression
+	): Predicate {
 		return new Expressions.Like(a, b, escape);
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @param escape 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @param escape
+	 * @returns
 	 */
-	static notLike(a: BitExpression, b: SimpleExpression, escape?: SimpleExpression): Predicate {
+	static notLike(
+		a: BitExpression,
+		b: SimpleExpression,
+		escape?: SimpleExpression
+	): Predicate {
 		return new Expressions.NotLike(a, b, escape);
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @returns
 	 */
 	static regex(a: BitExpression, b: BitExpression): Predicate;
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @returns
 	 */
 	static regex(a: BitExpression, b: RegExp): Predicate;
 
@@ -122,19 +141,19 @@ export default class Predicate extends BooleanPrimary {
 		} else {
 			return new Expressions.Regex(a, b);
 		}
-	};
+	}
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @returns
 	 */
 	static notRegex(a: BitExpression, b: BitExpression): Predicate;
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @returns 
+	 * @param a
+	 * @param b
+	 * @returns
 	 */
 	static notRegex(a: BitExpression, b: RegExp): Predicate;
 
@@ -145,5 +164,5 @@ export default class Predicate extends BooleanPrimary {
 		} else {
 			return new Expressions.NotRegex(a, b);
 		}
-	};
-};
+	}
+}

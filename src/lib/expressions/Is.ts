@@ -13,4 +13,4 @@ export default class Is extends Expression {
 		this.a = a;
 		this.b = b;
 	}
-};
+}

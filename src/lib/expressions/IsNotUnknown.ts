@@ -10,4 +10,4 @@ export default class IsNotUnknown extends Expression {
 		super();
 		this.a = a;
 	}
-};
+}

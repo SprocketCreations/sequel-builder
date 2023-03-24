@@ -7,9 +7,9 @@ export default class NotBetween extends Predicate {
 	private and: Predicate;
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @param and 
+	 * @param a
+	 * @param b
+	 * @param and
 	 */
 	constructor(a: BitExpression, b: BitExpression, and: Predicate) {
 		super();

@@ -8,11 +8,15 @@ export default class NotLike extends Predicate {
 	private escape?: SimpleExpression;
 
 	/**
-	 * @param a 
-	 * @param b 
-	 * @param escape 
+	 * @param a
+	 * @param b
+	 * @param escape
 	 */
-	constructor(a: BitExpression, b: SimpleExpression, escape?: SimpleExpression) {
+	constructor(
+		a: BitExpression,
+		b: SimpleExpression,
+		escape?: SimpleExpression
+	) {
 		super();
 		this.a = a;
 		this.b = b;

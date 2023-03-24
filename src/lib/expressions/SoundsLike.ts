@@ -6,8 +6,8 @@ export default class SoundsLike extends Predicate {
 	private b: BitExpression;
 
 	/**
-	 * @param a 
-	 * @param b 
+	 * @param a
+	 * @param b
 	 */
 	constructor(a: BitExpression, b: BitExpression) {
 		super();

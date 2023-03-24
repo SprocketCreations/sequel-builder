@@ -8,11 +8,15 @@ export default class CompareAny extends BooleanPrimary {
 	private subquery: Query;
 
 	/**
-	 * @param a 
-	 * @param operator 
-	 * @param subquery 
+	 * @param a
+	 * @param operator
+	 * @param subquery
 	 */
-	constructor(a: BooleanPrimary, operator: ComparisonOperator, subquery: Query) {
+	constructor(
+		a: BooleanPrimary,
+		operator: ComparisonOperator,
+		subquery: Query
+	) {
 		super();
 		this.a = a;
 		this.operator = operator;

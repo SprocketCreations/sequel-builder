@@ -13,4 +13,4 @@ export default class Or extends Expression {
 		this.a = a;
 		this.b = b;
 	}
-};
+}

@@ -5,5 +5,5 @@ enum ComparisonOperator {
 	GreaterOrEqual,
 	Less,
 	LessOrEqual,
-};
+}
 export default ComparisonOperator;

@@ -13,4 +13,4 @@ export default class BitAnd extends BitExpression {
 		this.a = a;
 		this.b = b;
 	}
-};
+}

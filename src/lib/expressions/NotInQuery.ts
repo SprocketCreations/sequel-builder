@@ -7,8 +7,8 @@ export default class NotInQuery extends Predicate {
 	private b: Query;
 
 	/**
-	 * @param a 
-	 * @param b 
+	 * @param a
+	 * @param b
 	 */
 	constructor(a: BitExpression, b: Query) {
 		super();

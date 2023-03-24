@@ -8,9 +8,9 @@ export default class Compare extends BooleanPrimary {
 	private b: Predicate;
 
 	/**
-	 * @param a 
-	 * @param operator 
-	 * @param b 
+	 * @param a
+	 * @param operator
+	 * @param b
 	 */
 	constructor(a: BooleanPrimary, operator: ComparisonOperator, b: Predicate) {
 		super();

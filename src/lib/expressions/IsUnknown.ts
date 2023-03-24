@@ -11,4 +11,4 @@ export default class IsUnknown extends Expression {
 		super();
 		this.a = a;
 	}
-};
+}

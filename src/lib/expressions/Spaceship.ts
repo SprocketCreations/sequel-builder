@@ -6,8 +6,8 @@ export default class Spaceship extends BooleanPrimary {
 	private b: Predicate;
 
 	/**
-	 * @param a 
-	 * @param b 
+	 * @param a
+	 * @param b
 	 */
 	constructor(a: BooleanPrimary, b: Predicate) {
 		super();

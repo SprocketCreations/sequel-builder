@@ -13,4 +13,4 @@ export default class BitShiftRight extends BitExpression {
 		this.a = a;
 		this.b = b;
 	}
-};
+}

@@ -14,4 +14,4 @@ export default class SumInterval extends BitExpression {
 		this.a = a;
 		this.b = b;
 	}
-};
+}

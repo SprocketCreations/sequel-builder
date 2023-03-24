@@ -6,8 +6,8 @@ export default class NotRegex extends Predicate {
 	private regex: RegExp;
 
 	/**
-	 * @param a 
-	 * @param regex 
+	 * @param a
+	 * @param regex
 	 */
 	constructor(a: BitExpression, regex: RegExp) {
 		super();

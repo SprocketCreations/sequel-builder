@@ -4,7 +4,7 @@ export default class IsNotNull extends BooleanPrimary {
 	private a: BooleanPrimary;
 
 	/**
-	 * @param a 
+	 * @param a
 	 */
 	constructor(a: BooleanPrimary) {
 		super();

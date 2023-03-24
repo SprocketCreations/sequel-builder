@@ -7,8 +7,8 @@ export default class InExpression extends Predicate {
 	private b: Expression;
 
 	/**
-	 * @param a 
-	 * @param b 
+	 * @param a
+	 * @param b
 	 */
 	constructor(a: BitExpression, b: Expression) {
 		super();

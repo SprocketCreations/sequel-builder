@@ -13,4 +13,4 @@ export default class IsNot extends Expression {
 		this.a = a;
 		this.b = b;
 	}
-};
+}
