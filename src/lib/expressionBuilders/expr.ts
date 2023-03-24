@@ -1,5 +1,7 @@
 import * as Expressions from "../expressionTypes";
+import { Expression } from "../expressionInterfaces";
 import booleanPrimary from "./booleanPrimary";
+import Not from "../Not";
 
 export default abstract class expr extends booleanPrimary {
 	/**
@@ -34,12 +36,11 @@ export default abstract class expr extends booleanPrimary {
 
 	/**
 	 * Returns true if a is false.
-	 * @param expr1
-	 * @param expr2
+	 * @param expr
 	 * @returns
 	 */
-	static not(expr1: Expression, expr2: Expression): Expression {
-		return new Expressions.Not(expr1, expr2);
+	static not(expr: Expression): Expression {
+		return new Not<Expression>(expr);
 	}
 
 	/**
@@ -59,7 +60,7 @@ export default abstract class expr extends booleanPrimary {
 	 * @returns
 	 */
 	static isNot(expr: Expression, bool: boolean): Expression {
-		return new Expressions.IsNot(expr, bool);
+		return new Not(new Expressions.Is(expr, bool));
 	}
 
 	/**
@@ -77,6 +78,6 @@ export default abstract class expr extends booleanPrimary {
 	 * @returns
 	 */
 	static isNotUnknown(expr: Expression): Expression {
-		return new Expressions.IsNotUnknown(expr);
+		return new Not(new Expressions.IsUnknown(expr));
 	}
 }
