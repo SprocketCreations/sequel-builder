@@ -1,163 +1,186 @@
-import * as Expressions from "./expressions";
-import Query from "./Query";
-import SimpleExpression from "./SimpleExpression";
-import { bitExpr } from "./booleanPrimary";
+import * as expressionTypes from "../expressionTypes";
+import Query from "../Query";
+import {
+	Expression,
+	Predicate,
+	BitExpression,
+	SimpleExpression,
+} from "../expressionInterfaces";
+import bitExpr from "./bitExpr";
+import Not from "../Not";
 
 export default abstract class predicate extends bitExpr {
 	/**
-	 * @param a
+	 * @param bitExpr
 	 * @param subQuery
 	 * @returns
 	 */
-	static in(a: BitExpression, subQuery: Query): Predicate;
+	static in(bitExpr: BitExpression, subQuery: Query): Predicate;
 
 	/**
-	 * @param a
+	 * @param bitExpr
 	 * @param subExpression
 	 * @returns
 	 */
-	static in(a: BitExpression, subExpression: Expression): Predicate;
+	static in(bitExpr: BitExpression, subExpression: Expression): Predicate;
 
 	/** Implementation */
-	static in(a: BitExpression, subExpressionOrQuery: Expression): Predicate {
+	static in(
+		bitExpr: BitExpression,
+		subExpressionOrQuery: Expression
+	): Predicate {
 		if (subExpressionOrQuery instanceof Query) {
-			return new Expressions.InQuery(a, subExpressionOrQuery);
+			return new expressionTypes.InQuery(bitExpr, subExpressionOrQuery);
 		} else {
-			return new Expressions.InExpression(a, subExpressionOrQuery);
+			return new expressionTypes.InExpression(bitExpr, subExpressionOrQuery);
 		}
 	}
 
 	/**
-	 * @param a
+	 * @param bitExpr
 	 * @param subQuery
 	 * @returns
 	 */
-	static notIn(a: BitExpression, subQuery: Query): Predicate;
+	static notIn(bitExpr: BitExpression, subQuery: Query): Predicate;
 
 	/**
-	 * @param a
+	 * @param bitExpr
 	 * @param subExpression
 	 * @returns
 	 */
-	static notIn(a: BitExpression, subExpression: Expression): Predicate;
+	static notIn(bitExpr: BitExpression, subExpression: Expression): Predicate;
 
 	/** Implementation */
-	static notIn(a: BitExpression, subExpressionOrQuery: Expression): Predicate {
+	static notIn(
+		bitExpr: BitExpression,
+		subExpressionOrQuery: Expression
+	): Predicate {
 		if (subExpressionOrQuery instanceof Query) {
-			return new Expressions.NotInQuery(a, subExpressionOrQuery);
+			return new Not(
+				new expressionTypes.InQuery(bitExpr, subExpressionOrQuery)
+			);
 		} else {
-			return new Expressions.NotInExpression(a, subExpressionOrQuery);
+			return new Not(
+				new expressionTypes.InExpression(bitExpr, subExpressionOrQuery)
+			);
 		}
 	}
 
 	/**
-	 * @param a
-	 * @param b
+	 * @param bitExpr1
+	 * @param bitExpr2
 	 * @param and
 	 * @returns
 	 */
 	static between(
-		a: BitExpression,
-		b: BitExpression,
+		bitExpr1: BitExpression,
+		bitExpr2: BitExpression,
 		and: Predicate
 	): Predicate {
-		return new Expressions.Between(a, b, and);
+		return new expressionTypes.Between(bitExpr1, bitExpr2, and);
 	}
 
 	/**
-	 * @param a
-	 * @param b
+	 * @param bitExpr1
+	 * @param bitExpr
 	 * @param and
 	 * @returns
 	 */
 	static notBetween(
-		a: BitExpression,
-		b: BitExpression,
+		bitExpr1: BitExpression,
+		bitExpr: BitExpression,
 		and: Predicate
 	): Predicate {
-		return new Expressions.NotBetween(a, b, and);
+		return new Not(new expressionTypes.Between(bitExpr1, bitExpr, and));
 	}
 
 	/**
-	 * @param a
-	 * @param b
+	 * @param bitExpr1
+	 * @param bitExpr2
 	 * @returns
 	 */
-	static soundsLike(a: BitExpression, b: BitExpression): Predicate {
-		return new Expressions.SoundsLike(a, b);
+	static soundsLike(
+		bitExpr1: BitExpression,
+		bitExpr2: BitExpression
+	): Predicate {
+		return new expressionTypes.SoundsLike(bitExpr1, bitExpr2);
 	}
 
 	/**
-	 * @param a
-	 * @param b
-	 * @param escape
+	 * @param bitExpr
+	 * @param simpleExpr
+	 * @param escapeSimpleExpr
 	 * @returns
 	 */
 	static like(
-		a: BitExpression,
-		b: SimpleExpression,
-		escape?: SimpleExpression
+		bitExpr: BitExpression,
+		simpleExpr: SimpleExpression,
+		escapeSimpleExpr?: SimpleExpression
 	): Predicate {
-		return new Expressions.Like(a, b, escape);
+		return new expressionTypes.Like(bitExpr, simpleExpr, escapeSimpleExpr);
 	}
 
 	/**
-	 * @param a
-	 * @param b
-	 * @param escape
+	 * @param bitExpr
+	 * @param simpleExpr
+	 * @param escapeSimpleExpr
 	 * @returns
 	 */
 	static notLike(
-		a: BitExpression,
-		b: SimpleExpression,
-		escape?: SimpleExpression
+		bitExpr: BitExpression,
+		simpleExpr: SimpleExpression,
+		escapeSimpleExpr?: SimpleExpression
 	): Predicate {
-		return new Expressions.NotLike(a, b, escape);
+		return new Not(
+			new expressionTypes.Like(bitExpr, simpleExpr, escapeSimpleExpr)
+		);
 	}
 
 	/**
-	 * @param a
-	 * @param b
+	 * @param bitExpr1
+	 * @param bitExpr2
 	 * @returns
 	 */
-	static regex(a: BitExpression, b: BitExpression): Predicate;
+	static regex(bitExpr1: BitExpression, bitExpr2: BitExpression): Predicate;
 
 	/**
-	 * @param a
-	 * @param b
+	 * @param bitExpr
+	 * @param regExp
 	 * @returns
 	 */
-	static regex(a: BitExpression, b: RegExp): Predicate;
+	static regex(bitExpr: BitExpression, regExp: RegExp): Predicate;
 
 	/** Implementation */
-	static regex(a: BitExpression, b: RegExp): Predicate {
-		if (b instanceof BitExpression) {
-			return new Expressions.RegexExpression(a, b);
+	static regex(bitExpr: BitExpression, bitExprOrRegExp: RegExp): Predicate {
+		if (bitExprOrRegExp instanceof RegExp) {
+			return new expressionTypes.Regex(bitExpr, bitExprOrRegExp);
 		} else {
-			return new Expressions.Regex(a, b);
+			return new expressionTypes.RegexExpression(bitExpr, bitExprOrRegExp);
 		}
 	}
 
 	/**
-	 * @param a
-	 * @param b
+	 * @param bitExpr1
+	 * @param bitExpr2
 	 * @returns
 	 */
-	static notRegex(a: BitExpression, b: BitExpression): Predicate;
+	static notRegex(bitExpr1: BitExpression, bitExpr2: BitExpression): Predicate;
 
 	/**
-	 * @param a
-	 * @param b
+	 * @param bitExpr
+	 * @param regExp
 	 * @returns
 	 */
-	static notRegex(a: BitExpression, b: RegExp): Predicate;
+	static notRegex(bitExpr: BitExpression, regExp: RegExp): Predicate;
 
 	/** Implementation */
-	static notRegex(a: BitExpression, b: RegExp): Predicate {
-		if (b instanceof BitExpression) {
-			return new Expressions.NotRegexExpression(a, b);
+	static notRegex(bitExpr: BitExpression, bitExprOrRegExp: RegExp): Predicate {
+		if (bitExprOrRegExp instanceof RegExp) {
+			return new Not(new expressionTypes.Regex(bitExpr, bitExprOrRegExp));
 		} else {
-			return new Expressions.NotRegex(a, b);
+			return new Not(
+				new expressionTypes.RegexExpression(bitExpr, bitExprOrRegExp)
+			);
 		}
 	}
 }
