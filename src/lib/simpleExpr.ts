@@ -1,23 +1,21 @@
-import BitExpression from "./BitExpression";
-import Expression from "./Expression";
-import * as Expressions from "./expressions";
+import expressionTypes from "./expressionTypes";
 import Query from "./Query";
 
-export default class SimpleExpression extends BitExpression {
+export default abstract class simpleExpr {
 	/**
-	 * @param a
+	 * @param string
 	 */
-	static literal(a: string): SimpleExpression;
+	static literal(string: string): SimpleExpression;
 
 	/**
-	 * @param a
+	 * @param number
 	 */
-	static literal(a: number): SimpleExpression;
+	static literal(number: number): SimpleExpression;
 
 	/**
-	 * @param a
+	 * @param bool
 	 */
-	static literal(a: boolean): SimpleExpression;
+	static literal(bool: boolean): SimpleExpression;
 
 	/**
 	 * @param a
@@ -28,13 +26,13 @@ export default class SimpleExpression extends BitExpression {
 	static literal(a: any): SimpleExpression {
 		switch (true) {
 			case typeof a == "string":
-				return new Expressions.StringLiteral(a);
+				return new expressionTypes.StringLiteral(a);
 			case typeof a == "number":
-				return new Expressions.NumberLiteral(a);
+				return new expressionTypes.NumberLiteral(a);
 			case typeof a == "boolean":
-				return new Expressions.BooleanLiteral(a);
+				return new expressionTypes.BooleanLiteral(a);
 			case a == null:
-				return new Expressions.NullLiteral();
+				return new expressionTypes.NullLiteral();
 			default:
 				throw "this should be unreachable";
 		}
@@ -44,32 +42,32 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static date(a: string): SimpleExpression {
-		return new Expressions.DateLiteral(a);
+		return new expressionTypes.DateLiteral(a);
 	}
 
 	/**
-	 * @param a
+	 * @param time
 	 */
-	static time(a: string): SimpleExpression {
-		return new Expressions.TimeLiteral(a);
+	static time(time: string): SimpleExpression {
+		return new expressionTypes.TimeLiteral(time);
 	}
 
 	/**
-	 * @param a
+	 * @param timestamp
 	 */
-	static timestamp(a: string): SimpleExpression;
+	static timestamp(timestamp: string): SimpleExpression;
 
 	/**
-	 * @param a
+	 * @param timestamp
 	 */
-	static timestamp(a: Date): SimpleExpression;
+	static timestamp(timestamp: Date): SimpleExpression;
 
 	/** Implementation */
-	static timestamp(a: Date): SimpleExpression {
-		if (a instanceof Date) {
-			return new Expressions.TimestampLiteral(a);
+	static timestamp(timestamp: Date): SimpleExpression {
+		if (timestamp instanceof Date) {
+			return new expressionTypes.TimestampLiteral(timestamp);
 		} else {
-			return new Expressions.TimestampDateLiteral(a);
+			return new expressionTypes.TimestampDateLiteral(timestamp);
 		}
 	}
 
@@ -77,67 +75,58 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static hexidecimal(a: string): SimpleExpression {
-		return new Expressions.HexidecimalLiteral(a);
+		return new expressionTypes.HexidecimalLiteral(a);
 	}
 
 	/**
 	 * @param a
 	 */
 	static binary(a: string): SimpleExpression {
-		return new Expressions.BinaryLiteral(a);
+		return new expressionTypes.BinaryLiteral(a);
 	}
 
 	//Identifiers
 	//https://dev.mysql.com/doc/refman/8.0/en/identifiers.html
-	static identifier(a: Expressions.Identifier): SimpleExpression {
-		return new Expressions.Identifier(a);
+	static identifier(a: expressionTypes.Identifier): SimpleExpression {
+		return new expressionTypes.Identifier(a);
 	}
 
 	/**
 	 * @param a
 	 */
 	static function(
-		identifier: Expressions.Identifier,
+		identifier: expressionTypes.Identifier,
 		...a: Expression[]
 	): SimpleExpression {
-		return new Expressions.Function(identifier, ...a);
+		return new expressionTypes.Function(identifier, ...a);
 	}
 
 	/**
 	 * @param a
 	 */
-	static collate(
-		a: SimpleExpression,
-		collationName: string
-	): SimpleExpression {
-		return new Expressions.Collate(a, collationName);
+	static collate(a: SimpleExpression, collationName: string): SimpleExpression {
+		return new expressionTypes.Collate(a, collationName);
 	}
 
 	/**
 	 * @param a
 	 */
-	static collate(
-		a: SimpleExpression,
-		collationName: string
-	): SimpleExpression {
-		return new Expressions.Collate(a, collationName);
+	static collate(a: SimpleExpression, collationName: string): SimpleExpression {
+		return new expressionTypes.Collate(a, collationName);
 	}
 
 	/**
 	 * @param a
 	 */
 	static parameterMarker(): SimpleExpression {
-		return new Expressions.ParameterMarker();
+		return new expressionTypes.ParameterMarker();
 	}
 
 	/**
 	 * @param a
 	 */
-	static collate(
-		a: SimpleExpression,
-		collationName: string
-	): SimpleExpression {
-		return new Expressions.Collate(a, collationName);
+	static collate(a: SimpleExpression, collationName: string): SimpleExpression {
+		return new expressionTypes.Collate(a, collationName);
 	}
 
 	/**
@@ -163,13 +152,13 @@ export default class SimpleExpression extends BitExpression {
 	static variable(a: any): SimpleExpression {
 		switch (true) {
 			case a instanceof UserVariable:
-				return new Expressions.UserVariable(a);
+				return new expressionTypes.UserVariable(a);
 			case a instanceof GlobalVariable:
-				return new Expressions.GlobalVariable(a);
+				return new expressionTypes.GlobalVariable(a);
 			case a instanceof LocalVariable:
-				return new Expressions.LocalVariable(a);
+				return new expressionTypes.LocalVariable(a);
 			case a instanceof Parameter:
-				return new Expressions.Parameter(a);
+				return new expressionTypes.Parameter(a);
 			default:
 				throw "this should be unreachable";
 		}
@@ -182,7 +171,7 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static positive(a: SimpleExpression): SimpleExpression {
-		return new Expressions.Positive(a);
+		return new expressionTypes.Positive(a);
 	}
 
 	/**
@@ -190,28 +179,30 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static negative(a: SimpleExpression): SimpleExpression {
-		return new Expressions.Negative(a);
+		return new expressionTypes.Negative(a);
 	}
 
 	/**
 	 * ~ simple_expr
 	 * @param a
 	 */
-	static bitNot(a: SimpleExpression): SimpleExpression {}
+	static bitNot(a: SimpleExpression): SimpleExpression {
+		return new Expression.BitNot(a);
+	}
 
 	/**
 	 * ! simple_expr
 	 * @param a
 	 */
 	static not(a: SimpleExpression): SimpleExpression {
-		return new Expressions.Not(a);
+		return new expressionTypes.Not(a);
 	}
 
 	/**
 	 * @param a
 	 */
 	static binary(a: SimpleExpression): SimpleExpression {
-		return new Expressions.Binary(a);
+		return new expressionTypes.Binary(a);
 	}
 
 	/**
@@ -228,7 +219,7 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static row(...a: Expression[]): SimpleExpression {
-		return new Expressions.Row(...a);
+		return new expressionTypes.Row(...a);
 	}
 
 	/**
@@ -237,7 +228,7 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static subQuery(a: Query): SimpleExpression {
-		return new Expressions.SubQuery(a);
+		return new expressionTypes.SubQuery(a);
 	}
 
 	/**
@@ -245,7 +236,7 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static exists(a: Query): SimpleExpression {
-		return new Expressions.Exists(a);
+		return new expressionTypes.Exists(a);
 	}
 
 	/**
@@ -253,7 +244,7 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static odbc(a: Expression): SimpleExpression {
-		return new Expressions.ODCB(a);
+		return new expressionTypes.ODCB(a);
 	}
 
 	/**
@@ -268,7 +259,7 @@ export default class SimpleExpression extends BitExpression {
 		against: Expression,
 		mod?: MatchModifier
 	): SimpleExpression {
-		return new Expressions.Match(a, against, mod);
+		return new expressionTypes.Match(a, against, mod);
 	}
 
 	/**
@@ -278,7 +269,7 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static case(a: Expression): SimpleExpression {
-		return new Expressions.Case(a);
+		return new expressionTypes.Case(a);
 	}
 
 	/**
@@ -286,6 +277,6 @@ export default class SimpleExpression extends BitExpression {
 	 * @param a
 	 */
 	static interval(a: Interval): SimpleExpression {
-		return new Expressions.Interval(a);
+		return new expressionTypes.Interval(a);
 	}
 }

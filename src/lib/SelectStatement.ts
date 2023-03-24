@@ -140,11 +140,7 @@ export default class SelectStatement extends Statement {
 		partition: Partition,
 		...additionalPartitions: Partition[]
 	): SelectStatement {
-		this.partitions = [
-			...this.partitions,
-			partition,
-			...additionalPartitions,
-		];
+		this.partitions = [...this.partitions, partition, ...additionalPartitions];
 		return this;
 	}
 
@@ -231,14 +227,3 @@ export default class SelectStatement extends Statement {
 		return this;
 	}
 }
-
-const [user]: User = await User.selectAll(User.all()).where(
-	Ex.equal(User.id, 7)
-);
-
-await db.transaction((session) => {
-	const rows: User[] = await User.selectAll(User.all()).where(
-		Ex.equal(User.id, 7)
-	);
-	session.reset();
-});

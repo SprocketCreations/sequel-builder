@@ -1,5 +1,5 @@
-import Expression from "./Expression";
+import expr from "./expr";
 
 export default class Query {}
 
-Table.select().all().where(Expression.and(a, b));
+Table.select().all().where(expr.and(a, b));

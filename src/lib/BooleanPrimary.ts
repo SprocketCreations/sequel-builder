@@ -1,80 +1,82 @@
 import ComparisonOperator from "./ComparisonOperator";
-import Predicate from "./Predicate";
 import Query from "./Query";
-import * as Expressions from "./expressions";
-import Expression from "./Expression";
+import ExpressionTypes from "./expressionTypes";
+import predicate from "./predicate";
 
-export default class BooleanPrimary extends Expression {
+export default abstract class booleanPrimary extends predicate {
 	/**
 	 * Checks a boolean for null.
-	 * @param a
+	 * @param booleanPrimary
 	 * @returns
 	 */
-	static isNull(a: BooleanPrimary): BooleanPrimary {
-		return new Expressions.IsNull(a);
+	static isNull(booleanPrimary: BooleanPrimary): BooleanPrimary {
+		return new ExpressionTypes.IsNull(booleanPrimary);
 	}
 
 	/**
 	 * Checks a boolean for not null.
-	 * @param a
+	 * @param booleanPrimary
 	 * @returns
 	 */
-	static isNotNull(a: BooleanPrimary): BooleanPrimary {
-		return new Expressions.IsNotNull(a);
+	static isNotNull(booleanPrimary: BooleanPrimary): BooleanPrimary {
+		return new ExpressionTypes.IsNotNull(booleanPrimary);
 	}
 
 	/**
 	 * Checks a boolean against a predicate.
-	 * @param a
-	 * @param b
+	 * @param booleanPrimary
+	 * @param predicate
 	 * @returns
 	 */
-	static spaceship(a: BooleanPrimary, b: Predicate): BooleanPrimary {
-		return new Expressions.Spaceship(a, b);
+	static spaceship(
+		booleanPrimary: BooleanPrimary,
+		predicate: Predicate
+	): BooleanPrimary {
+		return new ExpressionTypes.Spaceship(booleanPrimary, predicate);
 	}
 
 	/**
 	 * Compares a boolean to a predicate.
-	 * @param a
+	 * @param booleanPrimary
 	 * @param operator
-	 * @param b
+	 * @param predicate
 	 * @returns
 	 */
 	static compare(
-		a: BooleanPrimary,
+		booleanPrimary: BooleanPrimary,
 		operator: ComparisonOperator,
-		b: Predicate
+		predicate: Predicate
 	): BooleanPrimary {
-		return new Expressions.Compare(a, operator, b);
+		return new ExpressionTypes.Compare(booleanPrimary, operator, predicate);
 	}
 
 	/**
 	 * Compares a boolean to a predicate.
-	 * @param a
+	 * @param booleanPrimary
 	 * @param operator
 	 * @param subquery
 	 * @returns
 	 */
 	static compareAll(
-		a: BooleanPrimary,
+		booleanPrimary: BooleanPrimary,
 		operator: ComparisonOperator,
 		subquery: Query
 	): BooleanPrimary {
-		return new Expressions.CompareAll(a, operator, subquery);
+		return new ExpressionTypes.CompareAll(booleanPrimary, operator, subquery);
 	}
 
 	/**
 	 * Compares a boolean to a predicate.
-	 * @param a
+	 * @param booleanPrimary
 	 * @param operator
 	 * @param subquery
 	 * @returns
 	 */
 	static compareAny(
-		a: BooleanPrimary,
+		booleanPrimary: BooleanPrimary,
 		operator: ComparisonOperator,
 		subquery: Query
 	): BooleanPrimary {
-		return new Expressions.CompareAny(a, operator, subquery);
+		return new ExpressionTypes.CompareAny(booleanPrimary, operator, subquery);
 	}
 }

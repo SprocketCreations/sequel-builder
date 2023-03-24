@@ -1,11 +1,9 @@
 import * as Expressions from "./expressions";
-import BitExpression from "./BitExpression";
 import Query from "./Query";
-import Expression from "./Expression";
 import SimpleExpression from "./SimpleExpression";
-import BooleanPrimary from "./BooleanPrimary";
+import { bitExpr } from "./booleanPrimary";
 
-export default class Predicate extends BooleanPrimary {
+export default abstract class predicate extends bitExpr {
 	/**
 	 * @param a
 	 * @param subQuery
@@ -44,10 +42,7 @@ export default class Predicate extends BooleanPrimary {
 	static notIn(a: BitExpression, subExpression: Expression): Predicate;
 
 	/** Implementation */
-	static notIn(
-		a: BitExpression,
-		subExpressionOrQuery: Expression
-	): Predicate {
+	static notIn(a: BitExpression, subExpressionOrQuery: Expression): Predicate {
 		if (subExpressionOrQuery instanceof Query) {
 			return new Expressions.NotInQuery(a, subExpressionOrQuery);
 		} else {
