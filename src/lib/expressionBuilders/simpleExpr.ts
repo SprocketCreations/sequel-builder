@@ -3,42 +3,6 @@ import Query from "./Query";
 
 export default abstract class simpleExpr {
 	/**
-	 * @param string
-	 */
-	static literal(string: string): SimpleExpression;
-
-	/**
-	 * @param number
-	 */
-	static literal(number: number): SimpleExpression;
-
-	/**
-	 * @param bool
-	 */
-	static literal(bool: boolean): SimpleExpression;
-
-	/**
-	 * @param a
-	 */
-	static literal(a: null): SimpleExpression;
-
-	/** Implementation */
-	static literal(a: any): SimpleExpression {
-		switch (true) {
-			case typeof a == "string":
-				return new expressionTypes.StringLiteral(a);
-			case typeof a == "number":
-				return new expressionTypes.NumberLiteral(a);
-			case typeof a == "boolean":
-				return new expressionTypes.BooleanLiteral(a);
-			case a == null:
-				return new expressionTypes.NullLiteral();
-			default:
-				throw "this should be unreachable";
-		}
-	}
-
-	/**
 	 * @param a
 	 */
 	static date(a: string): SimpleExpression {
@@ -55,20 +19,8 @@ export default abstract class simpleExpr {
 	/**
 	 * @param timestamp
 	 */
-	static timestamp(timestamp: string): SimpleExpression;
-
-	/**
-	 * @param timestamp
-	 */
-	static timestamp(timestamp: Date): SimpleExpression;
-
-	/** Implementation */
-	static timestamp(timestamp: Date): SimpleExpression {
-		if (timestamp instanceof Date) {
-			return new expressionTypes.TimestampLiteral(timestamp);
-		} else {
-			return new expressionTypes.TimestampDateLiteral(timestamp);
-		}
+	static timestamp(timestamp: string): SimpleExpression {
+		return new expressionTypes.TimestampDateLiteral(timestamp);
 	}
 
 	/**
