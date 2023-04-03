@@ -1,4 +1,5 @@
-import expressionTypes from "./expressionTypes";
+import expressionTypes from "../expressionTypes";
+import { SimpleExpression } from "../expressionInterfaces";
 import Query from "./Query";
 
 export default abstract class simpleExpr {

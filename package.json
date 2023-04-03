@@ -3,16 +3,22 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"files": [
+		"dist/**/*"
+	],
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "tsc",
+		"test": "vitest"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"mysql2": "^3.2.0"
+		"mysql2": "^3.2.0",
+		"vitest": "^0.29.7"
 	},
 	"devDependencies": {
+		"@total-typescript/ts-reset": "^0.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.56.0",
 		"@typescript-eslint/parser": "^5.56.0",
 		"eslint": "^8.36.0",
